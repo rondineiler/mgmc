@@ -1,0 +1,71 @@
+﻿@model MGMC.Models.Medico
+
+@{
+    ViewBag.Title = "Cadastro de Médico";
+}
+
+<h4 class="text-center mt-2 font-weight-bold">
+    <i class="fa fa-user-md"></i> CADASTRO DE MÉDICO
+</h4>
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        @TempData["success"]
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+}
+
+@using (Html.BeginForm("Create", "Medicos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Nome)
+            @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", placeholder = "Nome completo", required = "required" })
+        </div>
+
+
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Especialidade)
+            @Html.TextBoxFor(m => m.Especialidade, new { @class = "form-control", placeholder = "Especialidade médica", required = "required" })
+        </div>
+
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Telefone)
+            @Html.TextBoxFor(m => m.Telefone, new { @class = "form-control", placeholder = "923 xxx xxx" })
+        </div>
+
+        <div class="col-md-6">
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "email@clinica.com", type = "email" })
+        </div>
+
+      
+
+    </div>
+
+    <div class="mt-4 text-right">
+        <a href="@Url.Action("Index", "Medicos")" class="btn btn-warning">
+            <i class="fa fa-times-circle"></i> Cancelar
+        </a>
+        <button type="submit" class="btn btn-primary ml-2">
+            <i class="fa fa-save"></i> Salvar
+        </button>
+    </div>
+}
+
+<script>
+    function previewFile() {
+        const file = document.querySelector('input[type=file]').files[0];
+        const preview = document.getElementById("previewImg");
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => preview.src = reader.result;
+            reader.readAsDataURL(file);
+        }
+    }
+</script>

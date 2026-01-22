@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@ViewBag.Title - CONSULTÓRIO QUALITY</title>
+
+    <!-- CSS -->
+    <link href="~/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
+    <link href="~/Content/css/sb-admin-2.min.css" rel="stylesheet" />
+
+    @RenderSection("styles", required: false)
+</head>
+
+<body id="page-top">
+
+    <div id="wrapper">
+
+        @Html.Partial("_Sidebar")
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+
+                @Html.Partial("_Topbar")
+
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+
+            </div>
+
+            @Html.Partial("_Footer")
+
+        </div>
+    </div>
+
+
+
+
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="~/Content/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/Scripts/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/Content/vendor/chart.js/Chart.min.js"></script>
+
+
+    <!-- Page level custom scripts -->
+    <script src="~/Scripts/js/demo/chart-pie-demo.js"></script>
+    <script src="~/Scripts/js/demo/chart-area-demo.js"></script>
+
+
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

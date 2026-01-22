@@ -1,0 +1,144 @@
+﻿@model IEnumerable<MGMC.Models.User>
+
+@{
+    ViewBag.Title = "Listagem de Utilizadores";
+}
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm mx-2 mt-2">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Sucesso!</strong> @TempData["success"]
+    </div>
+}
+
+<section class="content1">
+    <h3 class="text-center font-weight-bold mb-4">
+        LISTAGEM GERAL DOS UTILIZADORES
+    </h3>
+
+    <div class="row justify-content-center">
+        <div class="col-md-11">
+            <div class="card shadow">
+                <div class="card-body">
+
+                    @if (!Model.Any())
+                    {
+                        <div class="alert alert-info text-center">
+                            Nenhum utilizador registado.
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered table-hover text-center">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nome Completo</th>
+                                    <th>Tipo de Utilizador</th>
+                                    <th>Email</th>
+                                    <th>Estado</th>
+                                    <th>Opções</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @{
+                                    int num = 1;
+                                }
+
+                                @foreach (var user in Model)
+                                {
+                                    <tr>
+                                        <td>@num</td>
+
+                                        <td>@user.Nome</td>
+
+                                        <!-- PERFIL -->
+                                        <td>
+                                            <span class="badge badge-info">
+                                                @user.Perfil
+                                            </span>
+                                        </td>
+
+                                        <td>@user.Email</td>
+
+                                        <!-- ESTADO -->
+                                        <td>
+                                            @if (user.Ativo)
+                                            {
+                                                <span class="badge badge-success">Ativo</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger">Inativo</span>
+                                            }
+                                        </td>
+
+                                        <!-- AÇÕES -->
+                                        <td>
+
+                                            <a href="@Url.Action("Mostrar", "Utilizadores", new { id = user.Id })"
+                                               class="btn btn-success btn-sm" title="Visualizar">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+
+                                            <a href="@Url.Action("Edit", "Utilizadores", new { id = user.Id })"
+                                               class="btn btn-primary btn-sm" title="Editar">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+
+                                            <a href="@Url.Action("ChangePassword", "Utilizadores", new { id = user.Id })"
+                                               class="btn btn-dark btn-sm" title="Alterar Senha">
+                                                <i class="fa fa-key"></i>
+                                            </a>
+
+                                            <!-- Ativar / Desativar -->
+                                            @using (Html.BeginForm(
+                                                user.Ativo ? "Desativar" : "Ativar",
+                                                "Utilizadores",
+                                                new { id = user.Id },
+                                                FormMethod.Post,
+                                                new { style = "display:inline" }))
+                                            {
+                                                <button class="btn btn-warning btn-sm">
+                                                    @(user.Ativo ? "Desativar" : "Ativar")
+                                                </button>
+                                            }
+
+                                            <!-- Apagar -->
+                                            @using (Html.BeginForm(
+                                                "Delete",
+                                                "Utilizadores",
+                                                new { id = user.Id },
+                                                FormMethod.Post,
+                                                new { onsubmit = "return confirm('Deseja apagar este utilizador?');", style = "display:inline" }))
+                                            {
+                                                <button class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            }
+                                        </td>
+                                    </tr>
+                                    num++;
+                                }
+                            </tbody>
+                        </table>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .content1 {
+        min-height: 250px;
+        padding: 15px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 70px;
+        padding-right: 15px;
+    }
+</style>

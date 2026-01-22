@@ -1,0 +1,52 @@
+﻿@model MGMC.Models.Medico
+
+@{
+    ViewBag.Title = "Detalhes do Médico";
+}
+
+<h4 class="text-center font-weight-bold mb-4">
+    <i class="fa fa-user-md"></i> DETALHES DO MÉDICO
+</h4>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-body">
+
+                <dl class="row">
+
+                    <dt class="col-sm-4">Nome</dt>
+                    <dd class="col-sm-8">@Model.Nome</dd>
+
+                    <dt class="col-sm-4">Especialidade</dt>
+                    <dd class="col-sm-8">@Model.Especialidade</dd>
+
+                    <dt class="col-sm-4">Telefone</dt>
+                    <dd class="col-sm-8">
+                        @(string.IsNullOrEmpty(Model.Telefone) ? "N/D" : Model.Telefone)
+                    </dd>
+
+                    <dt class="col-sm-4">Email</dt>
+                    <dd class="col-sm-8">
+                        @(string.IsNullOrEmpty(Model.Email) ? "N/D" : Model.Email)
+                    </dd>
+
+           
+
+                </dl>
+
+                <div class="text-right">
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">
+                        <i class="fa fa-arrow-left"></i> Voltar
+                    </a>
+
+                    <a href="@Url.Action("Edit", new { id = Model.Id })"
+                       class="btn btn-primary ml-2">
+                        <i class="fa fa-edit"></i> Editar
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

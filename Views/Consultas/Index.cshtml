@@ -1,0 +1,84 @@
+﻿@model IEnumerable<MGMC.Models.Consulta>
+
+@{
+    ViewBag.Title = "Listagem de Consultas";
+}
+
+<section class="content1">
+    <h3 class="text-center font-weight-bold mb-4">
+        LISTAGEM DE CONSULTAS
+    </h3>
+
+    <div class="row justify-content-center">
+        <div class="col-md-11">
+            <div class="card shadow">
+                <div class="card-body">
+
+                    @if (!Model.Any())
+                    {
+                        <div class="alert alert-info text-center">
+                            Nenhuma consulta registada.
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered table-hover text-center">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Paciente</th>
+                                    <th>Médico</th>
+                                    <th>Data</th>
+                                    <th>Hora</th>
+                                    <th>Opções</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @{
+                                    int num = 1;
+                                }
+
+                                @foreach (var c in Model)
+                                {
+                                    <tr>
+                                        <td>@num</td>
+                                        <td>@c.Paciente.Nome</td>
+                                        <td>@c.Medico.Nome</td>
+                                        <td>@c.DataConsulta.ToShortDateString()</td>
+                                        <td>@c.HoraConsulta.ToString(@"hh\:mm")</td>
+
+                                        <!-- DELETE -->
+                                        <td>
+                                            @using (Html.BeginForm(
+                                                "Delete",
+                                                "Consultas",
+                                                new { id = c.Id },
+                                                FormMethod.Post,
+                                                new { onsubmit = "return confirm('Deseja apagar esta consulta?');", style = "display:inline" }))
+                                            {
+                                                <button class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-trash"></i> Apagar
+                                                </button>
+                                            }
+                                        </td>
+                                    </tr>
+                                    num++;
+                                }
+                            </tbody>
+                        </table>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .content1 {
+        min-height: 250px;
+        padding: 15px;
+        padding-left: 70px;
+    }
+</style>

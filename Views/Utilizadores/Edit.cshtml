@@ -1,0 +1,73 @@
+﻿@model MGMC.Models.User
+
+@{
+    ViewBag.Title = "Editar Utilizador";
+}
+
+<h4 class="text-center font-weight-bold mb-4">
+    <i class="fa fa-user-edit"></i> EDITAR UTILIZADOR
+</h4>
+
+@using (Html.BeginForm("Edit", "Utilizadores",
+        FormMethod.Post,
+        new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.Foto)
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Nome)
+                @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", required = "required" })
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email,
+                    new { @class = "form-control", type = "email", required = "required" })
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Perfil)
+                @Html.DropDownListFor(m => m.Perfil,
+                    new SelectList(
+                        new[] { "Administrador", "Medico", "Recepcionista" },
+                        Model.Perfil
+                    ),
+                    "-- Selecione --",
+                    new { @class = "form-control", required = "required" })
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Ativo)
+                <div class="form-check">
+                    @Html.CheckBoxFor(m => m.Ativo, new { @class = "form-check-input" })
+                    <label class="form-check-label">Utilizador ativo</label>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="text-right mt-3">
+        <a href="@Url.Action("Index")" class="btn btn-secondary">
+            <i class="fa fa-arrow-left"></i> Voltar
+        </a>
+
+        <button type="submit" class="btn btn-primary ml-2">
+            <i class="fa fa-save"></i> Salvar Alterações
+        </button>
+    </div>
+}

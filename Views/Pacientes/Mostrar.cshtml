@@ -1,0 +1,55 @@
+﻿@model MGMC.Models.Paciente
+
+@{
+    ViewBag.Title = "Detalhes do Paciente";
+}
+
+<h4 class="text-center mt-3 font-weight-bold">
+    <i class="fa fa-user-injured"></i> DETALHES DO PACIENTE
+</h4>
+
+<div class="card shadow mt-4">
+    <div class="card-body">
+
+        <dl class="row">
+
+            <dt class="col-sm-4">Nome</dt>
+            <dd class="col-sm-8">@Model.Nome</dd>
+
+            <dt class="col-sm-4">Data de Nascimento</dt>
+            <dd class="col-sm-8">@Model.DataNascimento.ToShortDateString()</dd>
+
+            <dt class="col-sm-4">Género</dt>
+            <dd class="col-sm-8">
+                @(string.IsNullOrEmpty(Model.Genero) ? "N/D" : Model.Genero)
+            </dd>
+
+            <dt class="col-sm-4">Telefone</dt>
+            <dd class="col-sm-8">
+                @(string.IsNullOrEmpty(Model.Telefone) ? "N/D" : Model.Telefone)
+            </dd>
+
+            <dt class="col-sm-4">Email</dt>
+            <dd class="col-sm-8">
+                @(string.IsNullOrEmpty(Model.Email) ? "N/D" : Model.Email)
+            </dd>
+
+            <dt class="col-sm-4">Documento</dt>
+            <dd class="col-sm-8">
+                @Model.TipoDocumento - @Model.NumeroDocumento
+            </dd>
+
+        </dl>
+
+        <div class="text-right">
+            <a href="@Url.Action("Index")" class="btn btn-secondary">
+                <i class="fa fa-arrow-left"></i> Voltar
+            </a>
+
+            <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-primary ml-2">
+                <i class="fa fa-edit"></i> Editar
+            </a>
+        </div>
+
+    </div>
+</div>

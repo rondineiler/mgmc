@@ -1,0 +1,123 @@
+﻿@model IEnumerable<MGMC.Models.Paciente>
+
+@{
+    ViewBag.Title = "Listagem de Pacientes";
+}
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm mx-2 mt-2">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Sucesso!</strong> @TempData["success"]
+    </div>
+}
+
+<section class="content1">
+    <h3 class="text-center font-weight-bold mb-4">
+        LISTAGEM GERAL DOS PACIENTES
+    </h3>
+
+    <div class="row justify-content-center">
+        <div class="col-md-11">
+            <div class="card shadow">
+                <div class="card-body">
+
+                    @if (!Model.Any())
+                    {
+                        <div class="alert alert-info text-center">
+                            Nenhum paciente registado.
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered table-hover text-center">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nome</th>
+                                    <th>Género</th>
+                                    <th>Telefone</th>
+                                    <th>Email</th>
+                                    <th>Opções</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @{
+                                    int num = 1;
+                                }
+
+                                @foreach (var paciente in Model)
+                                {
+                                    <tr>
+                                        <td>@num</td>
+
+                                        <td>@paciente.Nome</td>
+
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(paciente.Genero))
+                                            {
+                                                <span class="badge badge-info">
+                                                    @paciente.Genero
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-secondary">
+                                                    N/D
+                                                </span>
+                                            }
+                                        </td>
+
+                                        <td>
+                                            @(string.IsNullOrEmpty(paciente.Telefone) ? "N/D" : paciente.Telefone)
+                                        </td>
+
+                                        <td>
+                                            @(string.IsNullOrEmpty(paciente.Email) ? "N/D" : paciente.Email)
+                                        </td>
+
+                                        <!-- AÇÕES -->
+                                        <td>
+                                            <a href="@Url.Action("Mostrar", "Pacientes", new { id = paciente.Id })"
+                                               class="btn btn-success btn-sm" title="Visualizar">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+
+                                            <a href="@Url.Action("Edit", "Pacientes", new { id = paciente.Id })"
+                                               class="btn btn-primary btn-sm" title="Editar">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+
+                                            <form action="@Url.Action("Delete", "Pacientes", new { id = paciente.Id })"
+                                                  method="post"
+                                                  style="display:inline"
+                                                  onsubmit="return confirm('Deseja apagar este paciente?');">
+                                                <button class="btn btn-danger btn-sm" title="Eliminar">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    num++;
+                                }
+                            </tbody>
+                        </table>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .content1 {
+        min-height: 250px;
+        padding: 15px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 70px;
+        padding-right: 15px;
+    }
+</style>

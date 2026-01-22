@@ -1,0 +1,83 @@
+﻿@model IEnumerable<MGMC.Models.Medico>
+
+@{
+    ViewBag.Title = "Listagem de Médicos";
+}
+
+<section class="content1">
+    <h3 class="text-center font-weight-bold mb-4">
+        LISTAGEM GERAL DOS MÉDICOS
+    </h3>
+
+    <div class="row justify-content-center">
+        <div class="col-md-11">
+            <div class="card shadow">
+                <div class="card-body">
+
+                    <table class="table table-bordered table-hover text-center">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Nome</th>
+                                <th>Especialidade</th>
+                                <th>Opções</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @{
+                                int num = 1;
+                            }
+
+                            @foreach (var medico in Model)
+                            {
+                                <tr>
+                                    <td>@num</td>
+
+                               
+
+                                    <td>@medico.Nome</td>
+                                    <td>@medico.Especialidade</td>
+
+                                    <td>
+                                        <a href="@Url.Action("Mostrar", "Medicos", new { id = medico.Id })"
+                                           class="btn btn-success btn-sm" title="Ver">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+
+                                        <a href="@Url.Action("Edit", "Medicos", new { id = medico.Id })"
+                                           class="btn btn-primary btn-sm" title="Editar">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+
+
+                                        @using (Html.BeginForm(
+                                            "Delete",
+                                            "Medicos",
+                                            new { id = medico.Id },
+                                            FormMethod.Post,
+                                            new
+                                            {
+                                                style = "display:inline",
+                                                onsubmit = "return confirm('Deseja apagar este médico?');"
+                                            }))
+                                        {
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        }
+                                    </td>
+
+
+                                </tr>
+                                num++;
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
